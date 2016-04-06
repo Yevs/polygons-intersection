@@ -118,6 +118,7 @@
         var edgeVector = new Vector(edge[1].x-edge[0].x, edge[1].y-edge[0].y);
         var pointVector = new Vector(point.x-edge[0].x, point.y-edge[0].y);
         return (edgeVector.crossProduct(pointVector) == 0) &&
+               (edgeVector.scalarProduct(pointVector) >= 0) &&
                (edgeVector.scalarProduct(pointVector) <=
                     edgeVector.scalarProduct(edgeVector));
     };
@@ -574,10 +575,10 @@
         if (degenerate) {
             // a inside b?
             if (isPolyPointsInside(oldPolyA, oldPolyB)) {
-                return oldPolyA;
+                return [oldPolyA];
             // b inside a?
             } else if (isPolyPointsInside(oldPolyB, oldPolyA)) {
-                return oldPolyB;
+                return [oldPolyB];
             } else {
             // no intersection
                 return [];
@@ -630,6 +631,26 @@
 
 
     /**
+     * Returns doubled area of polygon. Doubled so we can get rid of
+     * division which may result in errors.
+     * @param polygon {Point[]} polygon
+     * @returns {Number} returns doubled area of polygon
+     */
+    function doubledArea(polygon) {
+        if (polygon.length <= 2) {
+            return 0;
+        }
+        var res = 0;
+        for (var i = 0; i < polygon.length; i++) {
+            var point1 = polygon[i];
+            var point2 = polygon[(i+1) % polygon.length];
+            res += (point1.x - point2.x) * (point1.y + point2.y);
+        }
+        return Math.abs(res);
+    };
+
+
+    /**
      * Returns all intersections of two non-simple polygons
      * @param polygonA {Point[]} first polygon
      * @param polygonB {Point[]} second polygon}
@@ -648,7 +669,10 @@
                 });
             }
         }
-        return res;
+        var AREA_THRESHOLD = 0.0001;
+        return res.filter(function (polygon) {
+            return doubledArea(polygon) >= 2 * AREA_THRESHOLD;
+        });
     };
 
     return intersects;
@@ -702,3 +726,6 @@
     // console.log('INTERSECTION');
 // console.log(intersects(polyA, polyB));
 })();
+
+// because of amigiuty in requirements
+var intersect = intersects;
