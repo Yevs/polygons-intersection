@@ -439,11 +439,11 @@
 
 
     /**
-    Returns function for sorting intersection points by how
-    far are they from vertex
-    @param vertex {Point} vertex itself
-    @returns comparator function
-    */
+     * Returns function for sorting intersection points by how
+     * far are they from vertex
+     * @param vertex {Point} vertex itself
+     * @returns comparator function
+     */
     function sortFunction(vertex) {
         return function(pointA_, pointB_) {
             var pointA = pointA_.point;
@@ -528,7 +528,7 @@
      * @param polygonA {Point[]} first polygon
      * @param polygonB {Point[]} second polygon
      * @param start_ver {Point} intersection point of first polygon from which traversing starts
-     * @used {boolean[]} marks of used vertices of first polygon
+     * @param used {boolean[]} marks of used vertices of first polygon
      */
     function traverseIntersection(polygonA, polygonB, start_ver, used) {
         var res = [];
@@ -676,56 +676,7 @@
     };
 
     return intersects;
-    // var polygon = [{x:-1, y:1}, {x:1, y:1}, {x:-1, y:-1}, {x:1, y:-1}];
-    // var polygon = [
-    //     { x: 30,  y: 240 },
-    //     { x: 330, y: 240 },
-    //     { x: 330, y: 210 },
-    //     { x: 270, y: 90  },
-    //     { x: 210, y: 270 },
-    //     { x: 210, y: 90  },
-    //     { x: 180, y: 60  },
-    //     { x: 150, y: 90  },
-    //     { x: 150, y: 270 },
-    //     { x: 90,  y: 90  },
-    //     { x: 30,  y: 210 }
-    //   ];
-    // console.log(split(polygon));
-    // var polyA = [
-    //     { x: 60,  y: 60  },
-    //     { x: 180, y: 0   },
-    //     { x: 300, y: 60  },
-    //     { x: 300, y: 300 },
-    //     { x: 240, y: 180 },
-    //     { x: 210, y: 180 },
-    //     { x: 180, y: 240 },
-    //     { x: 150, y: 180 },
-    //     { x: 120, y: 180 },
-    //     { x: 60,  y: 300 },
-    //   ];
-    // var polyB = [
-    //     { x: 30,  y: 240 },
-    //     { x: 330, y: 240 },
-    //     { x: 330, y: 210 },
-    //     { x: 270, y: 90  },
-    //     { x: 210, y: 270 },
-    //     { x: 210, y: 90  },
-    //     { x: 180, y: 60  },
-    //     { x: 150, y: 90  },
-    //     { x: 150, y: 270 },
-    //     { x: 90,  y: 90  },
-    //     { x: 30,  y: 210 }
-    //   ];
-    // // var polyB = [
-    // //     {x:0, y:15},
-    // //     {x:5, y:10},
-    // //     {x:10, y:15}
-    // //   ];
-    // // console.log(makePolies(polyA, polyB));
-    // // console.log(intersectSimplePolygons(makePolies(polyA, polyB)));
-    // console.log('INTERSECTION');
-// console.log(intersects(polyA, polyB));
 })();
 
-// because of amigiuty in requirements
+// because of ambiguity in requirements
 var intersect = intersects;
